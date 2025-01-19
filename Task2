@@ -1,0 +1,67 @@
+Name:Nooli Vinay Reddy
+Company:CODTECH IT SOLUTIONS
+ID:CT12WDDY
+Domine:EMBEDDED SYSTEMS
+Duration: December 9th, 2024 to March 29th, 2025
+Mentor:SRAVANI GOUNI
+
+Home Automation with Bluetooth is a system that allows users to control home appliances wirelessly via a 
+smartphone or Bluetooth-enabled device. By integrating a Bluetooth
+module with a microcontroller, commands can be sent from a mobile app to control 
+various appliances like lights, fans, and more.
+// Pin definitions
+const int appliance1 = 8; // Appliance 1 control pin
+const int appliance2 = 9; // Appliance 2 control pin
+
+void setup() {
+  // Initialize serial communication for Bluetooth
+  Serial.begin(9600); // Ensure the baud rate matches your Bluetooth module
+
+  // Configure appliance pins as output
+  pinMode(appliance1, OUTPUT);
+  pinMode(appliance2, OUTPUT);
+
+  // Turn off appliances initially
+  digitalWrite(appliance1, LOW);
+  digitalWrite(appliance2, LOW);
+
+  Serial.println("Bluetooth Home Automation System Ready!");
+  Serial.println("Commands:");
+  Serial.println("1 = Turn ON Appliance 1");
+  Serial.println("2 = Turn OFF Appliance 1");
+  Serial.println("3 = Turn ON Appliance 2");
+  Serial.println("4 = Turn OFF Appliance 2");
+}
+
+void loop() {
+  // Check if data is available from Bluetooth
+  if (Serial.available()) {
+    char command = Serial.read(); // Read the command sent via Bluetooth
+
+    switch (command) {
+      case '1':
+        digitalWrite(appliance1, HIGH); // Turn ON Appliance 1
+        Serial.println("Appliance 1 ON");
+        break;
+
+      case '2':
+        digitalWrite(appliance1, LOW); // Turn OFF Appliance 1
+        Serial.println("Appliance 1 OFF");
+        break;
+
+      case '3':
+        digitalWrite(appliance2, HIGH); // Turn ON Appliance 2
+        Serial.println("Appliance 2 ON");
+        break;
+
+      case '4':
+        digitalWrite(appliance2, LOW); // Turn OFF Appliance 2
+        Serial.println("Appliance 2 OFF");
+        break;
+
+      default:
+        Serial.println("Invalid Command");
+        break;
+    }
+  }
+}
